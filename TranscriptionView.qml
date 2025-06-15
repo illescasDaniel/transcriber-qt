@@ -8,7 +8,8 @@ import QtQuick.Controls.Material
 ApplicationWindow {
 	id: window
 	width: 600
-	height: 500
+	height: Math.max(400, contentLayout.implicitHeight + 40) // Dynamic height based on content
+	minimumHeight: 400
 	visible: true
 	title: qsTr("Audio Transcription Tool")
 
@@ -21,6 +22,7 @@ ApplicationWindow {
 		color: "#f5f5f5"
 
 		ColumnLayout {
+			id: contentLayout
 			anchors.fill: parent
 			anchors.margins: 20
 			spacing: 20
@@ -170,9 +172,7 @@ ApplicationWindow {
 				visible: text !== ""
 			}
 
-			Item {
-				Layout.fillHeight: true
-			}
+			// Removed the Item { Layout.fillHeight: true } that was causing empty space
 		}
 	}
 
