@@ -69,15 +69,15 @@ ApplicationWindow {
 					}
 
 					Text {
-						text: controller.audioFileName || qsTr("Drag and drop audio file here")
+						text: controller.audioFileName || qsTr("Drag and drop video or audio file here")
 						font.pixelSize: 14
 						color: controller.audioFileName ? "#2e7d32" : "#666666"
 						anchors.horizontalCenter: parent.horizontalCenter
 					}
 
 					Text {
-						text: qsTr("Supported: MP3, WAV, M4A, FLAC, OGG, OPUS, WMA, AAC")
-						font.pixelSize: 12
+						text: qsTr("Supported: MP3, WAV, M4A, FLAC, OGG, OPUS, WMA, AAC, MP4, AVI, MKV, MOV, WMV, FLV, WebM, 3GP,")
+						font.pixelSize: 10
 						color: "#999999"
 						anchors.horizontalCenter: parent.horizontalCenter
 						visible: !controller.audioFileName

@@ -29,7 +29,7 @@ class TranscriptionModel(QObject):
 
 		try:
 			# Step 0: Load model
-			self.progressUpdate.emit("Loading...", "", 0, 0)
+			self.progressUpdate.emit("Loading model (first time may take longer)...", "", 0, 0)
 			self.load_model()
 
 			# Step 1: Transcribe

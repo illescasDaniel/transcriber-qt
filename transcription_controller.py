@@ -102,8 +102,7 @@ class TranscriptionController(QObject):
 			file_path = file_url.replace('file://', '')
 
 		# Validate audio file
-		valid_extensions = ('.mp3', '.wav', '.m4a', '.flac', '.ogg', '.opus', '.wma', '.aac')
-		if os.path.isfile(file_path) and file_path.lower().endswith(valid_extensions):
+		if os.path.isfile(file_path):
 			self._audio_file = file_path
 			self._audio_file_name = os.path.basename(file_path)
 			self.audioFileNameChanged.emit()
