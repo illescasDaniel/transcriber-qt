@@ -2,7 +2,7 @@
 
 An easy-to-use GUI to easily transcribe speech to text, either from videos or directly from audio files.
 
-Made using PySide6 (Qt).
+Made using PySide6 (Qt) (mostly made with Claude.ai + some tweaks).
 
 <img src="docs/screenshot-windows.png" width="334">
 
