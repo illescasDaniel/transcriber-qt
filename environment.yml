@@ -1,4 +1,4 @@
-name: hf-cuda
+name: transcriber-qt
 channels:
   - conda-forge
 
@@ -7,7 +7,6 @@ dependencies:
   - pip
   - cudnn
 
-  # Install everything via pip to avoid dependency issues
   - pip:
     - torch
     - transformers
