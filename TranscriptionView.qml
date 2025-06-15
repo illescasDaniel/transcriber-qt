@@ -42,6 +42,12 @@ ApplicationWindow {
 				DropArea {
 					id: dropZone
 					anchors.fill: parent
+					keys: ["text/uri-list", "audio/mpeg", "audio/wav", "audio/mp4",
+						"audio/flac", "audio/ogg", "audio/opus", "audio/x-ms-wma", "audio/aac"]
+
+					onEntered: (drag) => {
+						drag.accept()
+					}
 
 					onDropped: (drop) => {
 						if (drop.hasUrls) {
@@ -68,7 +74,7 @@ ApplicationWindow {
 					}
 
 					Text {
-						text: qsTr("Supported: MP3, WAV, M4A, FLAC, OGG")
+						text: qsTr("Supported: MP3, WAV, M4A, FLAC, OGG, OPUS, WMA, AAC")
 						font.pixelSize: 12
 						color: "#999999"
 						anchors.horizontalCenter: parent.horizontalCenter
