@@ -44,11 +44,11 @@ class TranscriptionController(QObject):
 		self.worker_thread = None
 
 	# Properties
-	@Property(str, notify=audioFileNameChanged)
+	@Property(str, notify=audioFileNameChanged) # type: ignore
 	def audioFileName(self):
 		return self._audio_file_name
 
-	@Property(str, notify=outputFileChanged)
+	@Property(str, notify=outputFileChanged) # type: ignore
 	def outputFile(self):
 		return self._output_file
 
@@ -59,46 +59,47 @@ class TranscriptionController(QObject):
 			self.outputFileChanged.emit()
 			self._update_can_transcribe()
 
-	@Property(bool, notify=canTranscribeChanged)
+	@Property(bool, notify=canTranscribeChanged) # type: ignore
 	def canTranscribe(self):
 		return self._can_transcribe
 
-	@Property(bool, notify=isTranscribingChanged)
+	@Property(bool, notify=isTranscribingChanged) # type: ignore
 	def isTranscribing(self):
 		return self._is_transcribing
 
-	@Property(str, notify=statusMessageChanged)
+	@Property(str, notify=statusMessageChanged) # type: ignore
 	def statusMessage(self):
 		return self._status_message
 
-	@Property(str, notify=statusColorChanged)
+	@Property(str, notify=statusColorChanged) # type: ignore
 	def statusColor(self):
 		return self._status_color
 
-	@Property(str, notify=progressStageChanged)
+	@Property(str, notify=progressStageChanged) # type: ignore
 	def progressStage(self):
 		return self._progress_stage
 
-	@Property(str, notify=progressDetailChanged)
+	@Property(str, notify=progressDetailChanged) # type: ignore
 	def progressDetail(self):
 		return self._progress_detail
 
-	@Property(int, notify=currentSegmentChanged)
+	@Property(int, notify=currentSegmentChanged) # type: ignore
 	def currentSegment(self):
 		return self._current_segment
 
-	@Property(int, notify=totalSegmentsChanged)
+	@Property(int, notify=totalSegmentsChanged) # type: ignore
 	def totalSegments(self):
 		return self._total_segments
 
 	# Methods
 	@Slot(str)
-	def setAudioFile(self, file_url):
+	def setAudioFile(self, file_url: str):
 		# Convert QUrl to path
-		if isinstance(file_url, QUrl):
-			file_path = file_url.toLocalFile()
+		url = QUrl(file_url)
+		if url.isLocalFile():
+			file_path = url.toLocalFile()
 		else:
-			file_path = str(file_url).replace("file://", "")
+			file_path = file_url.replace('file://', '')
 
 		# Validate audio file
 		valid_extensions = ('.mp3', '.wav', '.m4a', '.flac', '.ogg', '.opus', '.wma', '.aac')

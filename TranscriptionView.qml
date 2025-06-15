@@ -253,14 +253,15 @@ ApplicationWindow {
 	FileDialog {
 		id: fileDialog
 		title: qsTr("Select Audio File")
-		nameFilters: ["Audio files (*.mp3 *.wav *.m4a *.flac *.ogg *.opus *.wma *.aac)",
-					 "All files (*)"]
+		nameFilters: [
+			"Audio files (*.mp3 *.wav *.m4a *.flac *.ogg *.opus *.wma *.aac)",
+			"All files (*)"
+		]
 		onAccepted: {
-			controller.setAudioFile(currentFile)
-			close()
+			controller.setAudioFile(selectedFile)
 		}
 		onRejected: {
-			close()
+
 		}
 	}
 
@@ -271,11 +272,10 @@ ApplicationWindow {
 		nameFilters: ["Text files (*.txt)", "All files (*)"]
 		defaultSuffix: "txt"
 		onAccepted: {
-			controller.outputFile = currentFile.toString().replace("file:///", "")
-			close()
+			controller.outputFile = selectedFile.toLocalFile()
 		}
 		onRejected: {
-			close()
+
 		}
 	}
 }
