@@ -1,4 +1,4 @@
-# Transcriber_qt
+# TranscriberQt
 
 An easy-to-use GUI to easily transcribe speech to text, either from videos or directly from audio files.
 
