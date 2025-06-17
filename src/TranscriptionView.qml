@@ -44,8 +44,16 @@ ApplicationWindow {
 				DropArea {
 					id: dropZone
 					anchors.fill: parent
-					keys: ["text/uri-list", "audio/mpeg", "audio/wav", "audio/mp4",
-						"audio/flac", "audio/ogg", "audio/opus", "audio/x-ms-wma", "audio/aac"]
+					keys: [
+						"text/uri-list",
+						// Audio MIME types
+						"audio/mpeg", "audio/wav", "audio/mp4", "audio/flac", "audio/ogg",
+						"audio/opus", "audio/x-ms-wma", "audio/aac",
+						// Video MIME types
+						"video/mp4", "video/avi", "video/x-msvideo", "video/quicktime",
+						"video/x-ms-wmv", "video/x-flv", "video/webm", "video/x-matroska",
+						"video/3gpp", "video/mp2t"
+					]
 
 					onEntered: (drag) => {
 						drag.accept()
@@ -260,7 +268,7 @@ ApplicationWindow {
 		id: fileDialog
 		title: qsTr("Select Audio File")
 		nameFilters: [
-			"Audio files (*.mp3 *.wav *.m4a *.flac *.ogg *.opus *.wma *.aac)",
+			"Media files (*.mp3 *.wav *.m4a *.flac *.ogg *.opus *.wma *.aac *.mp4 *.avi *.mkv *.mov *.wmv *.flv *.webm *.m4v *.3gp *.ts *.mts *.m2ts)",
 			"All files (*)"
 		]
 		onAccepted: {

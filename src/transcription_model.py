@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from PySide6.QtCore import QObject, Signal, Slot
 from faster_whisper import WhisperModel
@@ -19,8 +20,12 @@ class TranscriptionModel(QObject):
 
 	def load_model(self):
 		if not self.model:
-			self.model = WhisperModel('deepdml/faster-whisper-large-v3-turbo-ct2',
-									device='cuda')
+			cpu_count = os.cpu_count()
+			self.model = WhisperModel(
+				'deepdml/faster-whisper-large-v3-turbo-ct2',
+				device=self.__get_best_device(),
+				cpu_threads=cpu_count if cpu_count != None else 0
+			)
 
 	@Slot(str, str)
 	def transcribe(self, audio_file, output_file):
@@ -65,3 +70,16 @@ class TranscriptionModel(QObject):
 
 		except Exception as e:
 			self.transcriptionError.emit(str(e))
+
+	def __get_best_device(self) -> str:
+		if self.__has_cuda_via_nvidia_smi():
+			return 'cuda'
+		# manually setting 'mps' doesn't seem to work on macOS for this model
+		return 'auto'
+
+	def __has_cuda_via_nvidia_smi(self) -> bool:
+		try:
+			subprocess.check_output(['nvidia-smi'], stderr=subprocess.DEVNULL)
+			return True
+		except (FileNotFoundError, subprocess.CalledProcessError):
+			return False

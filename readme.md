@@ -11,6 +11,9 @@ Made using PySide6 (Qt) (mostly made with Claude.ai + some tweaks).
 2. Click transcribe.
 3. The transcription text file will be located in the same folder as the original input file.
 
-**Dependencies**: see environment.yml for a basic conda environment with all necessary dependencies including nvidia ones for GPU support
+**Dependencies**:
+- See `environment.yml` for a basic conda environment with all necessary dependencies including nvidia ones for GPU support.
+- Use `environment-cpu.yml` if you don't have a nvidia gpu.
 
-**How to run it**: `python main.py` inside src folder
+**How to run it**:
+- Run `python main.py` inside `src` folder.
