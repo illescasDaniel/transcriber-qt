@@ -11,7 +11,7 @@ ApplicationWindow {
 	height: Math.max(400, contentLayout.implicitHeight + 40) // Dynamic height based on content
 	minimumHeight: 400
 	visible: true
-	title: qsTr("Audio Transcription Tool")
+	title: qsTr("TranscriberQt - Audio Transcription Tool")
 
 	// Force Material theme with explicit colors
 	Material.theme: Material.Light
