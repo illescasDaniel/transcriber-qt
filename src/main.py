@@ -12,6 +12,7 @@ if __name__ == "__main__":
 
 	# Create controller instance first
 	controller = TranscriptionController()
+	controller.setParent(app)
 
 	engine = QQmlApplicationEngine()
 
