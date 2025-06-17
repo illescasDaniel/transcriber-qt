@@ -9,7 +9,7 @@ class TranscriptionModel(QObject):
 	"""Model: Handles the transcription logic and data"""
 
 	progressUpdate = Signal(str, str, int, int)  # stage, detail, current, total
-	transcriptionComplete = Signal(str)
+	transcriptionComplete = Signal()
 	transcriptionError = Signal(str)
 
 	def __init__(self):
@@ -66,7 +66,7 @@ class TranscriptionModel(QObject):
 				100,
 				100
 			)
-			self.transcriptionComplete.emit(output_file)
+			self.transcriptionComplete.emit()
 
 		except Exception as e:
 			self.transcriptionError.emit(str(e))

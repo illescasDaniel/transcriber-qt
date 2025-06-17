@@ -49,11 +49,11 @@ class TranscriptionController(QObject):
 		return self._audio_file_name
 
 	@Property(str, notify=outputFileChanged) # type: ignore
-	def outputFile(self):
+	def outputFile(self) -> str: # type: ignore
 		return self._output_file
 
 	@outputFile.setter
-	def outputFile(self, value):
+	def outputFile(self, value: str):
 		if self._output_file != value:
 			self._output_file = value
 			self.outputFileChanged.emit()
@@ -110,7 +110,7 @@ class TranscriptionController(QObject):
 			# Auto-suggest output file
 			if not self._output_file:
 				base_name = os.path.splitext(file_path)[0]
-				self.outputFile = f"{base_name}_transcript.txt"
+				self.outputFile = f"{base_name}_transcript.txt" # type: ignore
 
 			self._set_status(f"Audio file loaded: {self._audio_file_name}", "#2e7d32")
 			self._update_can_transcribe()
@@ -151,7 +151,6 @@ class TranscriptionController(QObject):
 		self.statusMessageChanged.emit()
 		self.statusColorChanged.emit()
 
-	@Slot(str, str, int, int)
 	def _on_progress_update(self, stage, detail, current, total):
 		self._progress_stage = stage
 		self._progress_detail = detail
@@ -163,11 +162,9 @@ class TranscriptionController(QObject):
 		self.currentSegmentChanged.emit()
 		self.totalSegmentsChanged.emit()
 
-	@Slot(str)
-	def _on_transcription_complete(self, output_file):
+	def _on_transcription_complete(self):
 		self._set_status("Transcription completed successfully!", "#2e7d32")
 
-	@Slot(str)
 	def _on_transcription_error(self, error_msg):
 		self._is_transcribing = False
 		self.isTranscribingChanged.emit()
