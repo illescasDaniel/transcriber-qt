@@ -15,8 +15,8 @@ class TranscriptionModel(QObject):
 	def __init__(self):
 		super().__init__()
 		self.model = None
-		self.audio_file = ""
-		self.output_file = ""
+		self.audio_file: str = ""
+		self.output_file: str = ""
 
 	def load_model(self):
 		if not self.model:
@@ -28,7 +28,7 @@ class TranscriptionModel(QObject):
 			)
 
 	@Slot(str, str)
-	def transcribe(self, audio_file, output_file):
+	def transcribe(self, audio_file: str, output_file: str):
 		self.audio_file = audio_file
 		self.output_file = output_file
 
