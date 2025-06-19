@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from PySide6.QtCore import QObject, Signal, Slot
+from PySide6.QtCore import QObject, Signal
 from faster_whisper import WhisperModel
 
 
@@ -27,7 +27,6 @@ class TranscriptionModel(QObject):
 				cpu_threads=cpu_count if cpu_count != None else 0
 			)
 
-	@Slot(str, str)
 	def transcribe(self, audio_file: str, output_file: str):
 		self.audio_file = audio_file
 		self.output_file = output_file
