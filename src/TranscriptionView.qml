@@ -237,10 +237,14 @@ ApplicationWindow {
 
 			Text {
 				Layout.alignment: Qt.AlignHCenter
+				Layout.fillWidth: true
+				Layout.maximumWidth: parent.width * 0.9
 				text: controller.progressDetail
 				font.pixelSize: 12
 				color: "#666666"
 				visible: text !== ""
+				wrapMode: Text.WordWrap
+				horizontalAlignment: Text.AlignHCenter
 			}
 
 			Button {
