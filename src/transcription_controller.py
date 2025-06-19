@@ -92,6 +92,17 @@ class TranscriptionController(QObject):
 		return self._total_segments
 
 	# Methods
+
+	@Slot(str)
+	def manuallSetOutputFile(self, file_url: str):
+		url = QUrl(file_url)
+		if url.isLocalFile():
+			file_path = url.toLocalFile()
+		else:
+			file_path = file_url.replace('file://', '')
+		if file_path:
+			self.outputFile = file_path # type: ignore
+
 	@Slot(str)
 	def setAudioFile(self, file_url: str):
 		# Convert QUrl to path
@@ -108,9 +119,8 @@ class TranscriptionController(QObject):
 			self.audioFileNameChanged.emit()
 
 			# Auto-suggest output file
-			if not self._output_file:
-				base_name = os.path.splitext(file_path)[0]
-				self.outputFile = f"{base_name}_transcript.txt" # type: ignore
+			base_name = os.path.splitext(file_path)[0]
+			self.outputFile = f"{base_name}_transcript.txt" # type: ignore
 
 			self._set_status(f"Audio file loaded: {self._audio_file_name}", "#2e7d32")
 			self._update_can_transcribe()

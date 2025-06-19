@@ -179,8 +179,6 @@ ApplicationWindow {
 				font.pixelSize: 12
 				visible: text !== ""
 			}
-
-			// Removed the Item { Layout.fillHeight: true } that was causing empty space
 		}
 	}
 
@@ -286,7 +284,7 @@ ApplicationWindow {
 		nameFilters: ["Text files (*.txt)", "All files (*)"]
 		defaultSuffix: "txt"
 		onAccepted: {
-			controller.outputFile = selectedFile.toLocalFile()
+			controller.manuallSetOutputFile(selectedFile)
 		}
 		onRejected: {
 
