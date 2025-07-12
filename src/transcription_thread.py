@@ -6,11 +6,13 @@ from transcription_model import TranscriptionModel
 class TranscriptionThread(QThread):
 	"""Worker thread for transcription"""
 
-	def __init__(self, model: TranscriptionModel, audio_file, output_file):
+	def __init__(self, model: TranscriptionModel, audio_file, output_file, min_speakers=1, max_speakers=1):
 		super().__init__()
 		self.model = model
 		self.audio_file = audio_file
 		self.output_file = output_file
+		self.min_speakers = min_speakers
+		self.max_speakers = max_speakers
 
 	def run(self):
-		self.model.transcribe(self.audio_file, self.output_file)
+		self.model.transcribe(self.audio_file, self.output_file, self.min_speakers, self.max_speakers)

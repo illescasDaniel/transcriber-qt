@@ -20,6 +20,8 @@ class TranscriptionController(QObject):
 	progressDetailChanged = Signal()
 	currentSegmentChanged = Signal()
 	totalSegmentsChanged = Signal()
+	minSpeakersChanged = Signal()
+	maxSpeakersChanged = Signal()
 
 	def __init__(self):
 		super().__init__()
@@ -34,6 +36,8 @@ class TranscriptionController(QObject):
 		self._progress_detail = ""
 		self._current_segment = 0
 		self._total_segments = 0
+		self._min_speakers = 1
+		self._max_speakers = 1
 
 		# Create model
 		self.model = TranscriptionModel()
@@ -91,6 +95,32 @@ class TranscriptionController(QObject):
 	def totalSegments(self):
 		return self._total_segments
 
+	@Property(int, notify=minSpeakersChanged) # type: ignore
+	def minSpeakers(self): # type: ignore
+		return self._min_speakers
+
+	@minSpeakers.setter
+	def minSpeakers(self, value: int):
+		if value > 0 and self._min_speakers != value:
+			self._min_speakers = value
+			# Ensure max is at least equal to min
+			if self._max_speakers < value:
+				self.maxSpeakers = value # type: ignore
+			self.minSpeakersChanged.emit()
+
+	@Property(int, notify=maxSpeakersChanged) # type: ignore
+	def maxSpeakers(self): # type: ignore
+		return self._max_speakers
+
+	@maxSpeakers.setter
+	def maxSpeakers(self, value: int):
+		if value > 0 and self._max_speakers != value:
+			self._max_speakers = value
+			# Ensure min is not greater than max
+			if self._min_speakers > value:
+				self.minSpeakers = value # type: ignore
+			self.maxSpeakersChanged.emit()
+
 	# Methods
 
 	@Slot(str)
@@ -137,9 +167,13 @@ class TranscriptionController(QObject):
 		self._set_status("", "")
 
 		# Start transcription in worker thread
-		self.worker_thread = TranscriptionThread(self.model,
-												self._audio_file,
-												self._output_file)
+		self.worker_thread = TranscriptionThread(
+			self.model,
+			self._audio_file,
+			self._output_file,
+			self._min_speakers,
+			self._max_speakers
+		)
 		self.worker_thread.start()
 
 	@Slot()

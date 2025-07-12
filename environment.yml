@@ -1,4 +1,4 @@
-name: transcriber-qt
+name: transcriber-qt2
 channels:
   - conda-forge
 

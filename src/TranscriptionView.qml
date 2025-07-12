@@ -8,10 +8,10 @@ import QtQuick.Controls.Material
 ApplicationWindow {
 	id: window
 	width: 600
-	height: Math.max(400, contentLayout.implicitHeight + 40) // Dynamic height based on content
-	minimumHeight: 400
+	height: Math.max(450, contentLayout.implicitHeight + 40) // Dynamic height based on content
+	minimumHeight: 450
 	visible: true
-	title: qsTr("TranscriberQt - Audio Transcription Tool")
+	title: qsTr("TranscriberQt - Audio Transcription Tool with Speaker Diarization")
 
 	// Force Material theme with explicit colors
 	Material.theme: Material.Light
@@ -141,6 +141,82 @@ ApplicationWindow {
 				}
 			}
 
+			// Speaker Settings Section
+			RowLayout {
+				Layout.fillWidth: true
+				spacing: 20
+
+				// Minimum Speakers
+				RowLayout {
+					spacing: 10
+
+					Text {
+						text: qsTr("Minimum Speakers:")
+						font.pixelSize: 14
+						color: "#000000"
+					}
+
+					SpinBox {
+						id: minSpeakersSpinBox
+						from: 1
+						to: 99
+						value: controller.minSpeakers
+						editable: true
+
+						onValueChanged: {
+							controller.minSpeakers = value
+						}
+
+						background: Rectangle {
+							color: "#ffffff"
+							border.color: minSpeakersSpinBox.activeFocus ? "#2196f3" : "#e0e0e0"
+							border.width: 1
+							radius: 4
+						}
+					}
+				}
+
+				// Maximum Speakers
+				RowLayout {
+					spacing: 10
+
+					Text {
+						text: qsTr("Maximum Speakers:")
+						font.pixelSize: 14
+						color: "#000000"
+					}
+
+					SpinBox {
+						id: maxSpeakersSpinBox
+						from: 1
+						to: 99
+						value: controller.maxSpeakers
+						editable: true
+
+						onValueChanged: {
+							controller.maxSpeakers = value
+						}
+
+						background: Rectangle {
+							color: "#ffffff"
+							border.color: maxSpeakersSpinBox.activeFocus ? "#2196f3" : "#e0e0e0"
+							border.width: 1
+							radius: 4
+						}
+					}
+				}
+			}
+
+			// Help text for speaker settings
+			Text {
+				Layout.fillWidth: true
+				text: qsTr("Set both values to 1 to disable speaker diarization")
+				font.pixelSize: 11
+				color: "#666666"
+				font.italic: true
+				horizontalAlignment: Text.AlignHCenter
+			}
+
 			// Transcribe Button
 			Button {
 				id: transcribeButton
@@ -218,7 +294,9 @@ ApplicationWindow {
 				to: controller.totalSegments
 				value: controller.currentSegment
 				indeterminate: controller.progressStage.includes("Loading") ||
-							  controller.progressStage.includes("Transcribing")
+							  controller.progressStage.includes("Transcribing") ||
+							  controller.progressStage.includes("Aligning") ||
+							  controller.progressStage.includes("Identifying")
 
 				background: Rectangle {
 					color: "#e0e0e0"
