@@ -72,12 +72,12 @@ class TranscriptionModel(QObject):
 				self.device,
 				return_char_alignments=False
 			)
-			print(105)
+
 			# Step 3: Diarize (only if we expect multiple speakers)
 			if max_speakers > 1:
 				self.progressUpdate.emit('Loading speaker diarization model...', '', 50, 100)
 				self.load_diarization_model()
-				print(106)
+
 				if not self.diarize_model:
 					self.transcriptionError.emit('Diarization model not loaded')
 					return
@@ -88,7 +88,6 @@ class TranscriptionModel(QObject):
 					min_speakers=min_speakers,
 					max_speakers=max_speakers
 				)
-				print(107)
 
 				# Assign speaker labels
 				self.progressUpdate.emit('Assigning speaker labels...', '', 75, 100)
@@ -96,16 +95,13 @@ class TranscriptionModel(QObject):
 					diarize_segments,
 					result
 				)
-				print(108)
 
 			# Step 4: Write output
 
 			# TODO: fix progress!!!
 
 			self.progressUpdate.emit('Writing transcript...', '', 90, 100)
-			print(109)
 			with open(output_file, 'w', buffering=8192) as f:
-				print(110)
 				for segment in result['segments']:
 					# Format with speaker info if available
 					if 'speaker' in segment and max_speakers > 1:
