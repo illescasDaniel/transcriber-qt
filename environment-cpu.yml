@@ -1,4 +1,4 @@
-name: transcriber-qt-cpu
+name: transcriber-qt-speakers-cpu
 channels:
   - conda-forge
   - defaults
@@ -7,9 +7,9 @@ dependencies:
   - ffmpeg
   - pip
   - pip:
-    - torch --index-url https://download.pytorch.org/whl/cpu
-    - torchvision --index-url https://download.pytorch.org/whl/cpu
-    - torchaudio --index-url https://download.pytorch.org/whl/cpu
+    - torch
+    - torchvision
+    - torchaudio
     - whisperx
     - PySide6
     - python-dotenv
