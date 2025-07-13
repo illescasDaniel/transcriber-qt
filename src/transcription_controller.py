@@ -37,7 +37,7 @@ class TranscriptionController(QObject):
 		self._current_segment = 0
 		self._total_segments = 0
 		self._min_speakers = 1
-		self._max_speakers = 1
+		self._max_speakers = 5
 
 		# Create model
 		self.model = TranscriptionModel()
