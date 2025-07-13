@@ -1,7 +1,6 @@
-name: transcriber-qt
+name: transcriber-qt-speakers
 channels:
   - conda-forge
-  - nvidia
   - defaults
 dependencies:
   - python=3.11
@@ -9,9 +8,10 @@ dependencies:
   - cudnn=8.*
   - pip
   - pip:
-    - torch --index-url https://download.pytorch.org/whl/cu118
-    - torchvision --index-url https://download.pytorch.org/whl/cu118
-    - torchaudio --index-url https://download.pytorch.org/whl/cu118
+    - --extra-index-url https://download.pytorch.org/whl/cu118
+    - torch
+    - torchvision
+    - torchaudio
     - whisperx
     - PySide6
     - python-dotenv

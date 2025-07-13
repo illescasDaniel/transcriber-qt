@@ -8,6 +8,7 @@ import QtQuick.Controls.Material
 ApplicationWindow {
 	id: window
 	width: 600
+	minimumWidth: 600
 	height: Math.max(450, contentLayout.implicitHeight + 40) // Dynamic height based on content
 	minimumHeight: 450
 	visible: true
@@ -254,6 +255,7 @@ ApplicationWindow {
 				color: controller.statusColor
 				font.pixelSize: 12
 				visible: text !== ""
+				wrapMode: Text.WordWrap
 			}
 		}
 	}

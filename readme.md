@@ -4,8 +4,8 @@ An easy-to-use GUI to easily transcribe speech to text, either from videos or di
 
 - **UI**: PySide6 using QML (Qt)
 - **AI models**:
-	- Speech recognition: **whisper**-large-v3-turbo ('deepdml/faster-whisper-large-v3-turbo-ct2')
-	- Diarization (speaker recogniztion) models from pyannote, using `whisperx` package
+	- Speech recognition: **whisper**-large-v3-turbo ('deepdml/faster-whisper-large-v3-turbo-ct2'). Using `faster-whisper`.
+	- Diarization (speaker recogniztion) models from pyannote, using `whisperx` package.
 
 <img src="docs/screenshot-windows.png" width="334">
 
@@ -21,14 +21,12 @@ An easy-to-use GUI to easily transcribe speech to text, either from videos or di
 (`conda env create -f environment.yml`)
 
 **How to run it**:
-1. You need to create a hugging-face READ token and then accept these terms manually once:
+1. You need to create [a hugging-face READ token](https://huggingface.co/settings/tokens) and then accept these terms manually once:
 	- https://huggingface.co/pyannote/speaker-diarization-3.1
 	- https://huggingface.co/pyannote/segmentation-3.0
 	- https://huggingface.co/pyannote/segmentation
 2. Place your token on a .env file (HF_TOKEN=your_token)
 3. Run `python main.py` inside `src` folder
 
-
 TODOs:
-1. Fix progress
-2. Test on CPU-only platforms
+1. Test on CPU-only platforms
