@@ -2,40 +2,33 @@
 
 An easy-to-use GUI to easily transcribe speech to text, either from videos or directly from audio files.
 
-Made using PySide6 (Qt) (mostly made with Claude.ai + some tweaks).
+- **UI**: PySide6 using QML (Qt)
+- **AI models**:
+	- Speech recognition: **whisper**-large-v3-turbo ('deepdml/faster-whisper-large-v3-turbo-ct2')
+	- Diarization (speaker recogniztion) models from pyannote, using `whisperx` package
 
 <img src="docs/screenshot-windows.png" width="334">
 
 **How to use:**
 1. Drag and drop your video or audio.
-2. Click transcribe.
-3. The transcription text file will be located in the same folder as the original input file.
+2. Choose the min and max number of speakers.
+3. Click transcribe.
+4. By default, the transcription text file will be located in the same folder as the original input file.
 
 **Dependencies**:
 - See `environment.yml` for a basic conda environment with all necessary dependencies including nvidia ones for GPU support.
 - Use `environment-cpu.yml` if you don't have a nvidia gpu.
 (`conda env create -f environment.yml`)
 
-
-conda create --name transcriber2 python=3.11
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-conda install ffmpeg -c conda-forge
-conda install cudnn=8.* -c conda-forge
-pip install whisperx
-pip install PySide6
-
-
 **How to run it**:
-You need to create a hugging-face READ token and then accept these terms manually here: https://huggingface.co/pyannote/speaker-diarization-3.1 and https://hf.co/pyannote/segmentation-3.0 and https://huggingface.co/pyannote/segmentation
+1. You need to create a hugging-face READ token and then accept these terms manually once:
+	- https://huggingface.co/pyannote/speaker-diarization-3.1
+	- https://huggingface.co/pyannote/segmentation-3.0
+	- https://huggingface.co/pyannote/segmentation
+2. Place your token on a .env file (HF_TOKEN=your_token)
+3. Run `python main.py` inside `src` folder
 
-- Windows:
-	- Run `set HF_TOKEN=<your hugging face token here> && python main.py` inside `src` folder
-- Unix:
-	- Run `HF_TOKEN=<your hugging face token here> python main.py` inside `src` folder
 
-
-
-todo:
-from dotenv import load_dotenv
-
-load_dotenv()  # Load from .env file
+TODOs:
+1. Fix progress
+2. Test on CPU-only platforms

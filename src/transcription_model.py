@@ -1,7 +1,7 @@
 import os
-import subprocess
 from typing import Optional
 
+import torch
 from PySide6.QtCore import QObject, Signal
 import whisperx
 from whisperx.diarize import DiarizationPipeline
@@ -130,14 +130,7 @@ class TranscriptionModel(QObject):
 			self.transcriptionError.emit(str(e))
 
 	def __get_best_device(self) -> str:
-		if self.__has_cuda_via_nvidia_smi():
+		if torch.cuda.is_available():
 			return 'cuda'
 		# 'mps' doesn't seem to work on macOS for this model, it might not be supported yet
-		return 'auto'
-
-	def __has_cuda_via_nvidia_smi(self) -> bool:
-		try:
-			subprocess.check_output(['nvidia-smi'], stderr=subprocess.DEVNULL)
-			return True
-		except (FileNotFoundError, subprocess.CalledProcessError):
-			return False
+		return 'cpu'

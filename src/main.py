@@ -3,11 +3,14 @@ import sys
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from PySide6.QtQml import QQmlApplicationEngine
+from dotenv import load_dotenv
 
 from transcription_controller import TranscriptionController
 
 
 if __name__ == "__main__":
+	load_dotenv()
+
 	app = QApplication(sys.argv)
 
 	# Create controller instance first
